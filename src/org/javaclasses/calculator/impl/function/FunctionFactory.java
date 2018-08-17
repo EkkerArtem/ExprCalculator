@@ -1,5 +1,6 @@
 package org.javaclasses.calculator.impl.function;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -32,14 +33,14 @@ public class FunctionFactory {
         put("max(", new Function() {
             @Override
             public double execute(double... args) {
-                return Math.max(args[0],args[1]);
+                return Arrays.stream(args).max().getAsDouble();
             }
         });
 
         put("min(", new Function() {
             @Override
             public double execute(double... args) {
-                return Math.min(args[0],args[1]);
+                return Arrays.stream(args).min().getAsDouble();
             }
         });
 

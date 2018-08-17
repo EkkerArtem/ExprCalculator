@@ -4,8 +4,6 @@ import org.javaclasses.calculator.impl.FsmCalculator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class MathExpressionCalculatorTest {
 
     private final MathExpressionCalculator calculator = new FsmCalculator();
@@ -85,8 +83,8 @@ class MathExpressionCalculatorTest {
     @Test
     void testMaxExpression()  throws CalculationException{
 
-        double result = calculator.calculate("max(26/2 , 12/2)");
-        Assertions.assertEquals(13, result,
+        double result = calculator.calculate("max(26/2 , 12/2 , 8*2)");
+        Assertions.assertEquals(16, result,
                 "Max is not calculated correctly.");
     }
 
