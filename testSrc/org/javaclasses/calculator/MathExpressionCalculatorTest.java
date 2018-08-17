@@ -11,6 +11,7 @@ class MathExpressionCalculatorTest {
     @Test
     void testSingleNumber() throws CalculationException {
 
+
         double result = calculator.calculate("4");
         Assertions.assertEquals(4, result,
                 "Single number is not calculated correctly.");
