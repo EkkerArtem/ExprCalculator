@@ -89,8 +89,6 @@ public class CalculationContext implements MathExpressionElementVisitor {
             }
         }
 
-
-
         int requiredSize;
 
         if (masterStack.peek().bracers.size() != 0) {
@@ -102,24 +100,7 @@ public class CalculationContext implements MathExpressionElementVisitor {
         }
 
         if (!functions.isEmpty()) {
-            Function function = functions.peek();
-            double temp;
-            double[] array = new double[masterStack.peek().operands.size()];
-            if (masterStack.peek().operands.size() != 0) {
-                for (int i = 0; i < masterStack.peek().operands.size()+1; i++) {
-                    temp = masterStack.peek().operands.pop();
-                    array[i] = temp;
-                }
-                masterStack.pop();
-                double result = function.execute(array);
-                masterStack.peek().operands.push(result);
-                functions.pop();
-            }else {
-                masterStack.pop();
-                double result = function.execute();
-                masterStack.peek().operands.push(result);
-                functions.pop();
-            }
+            calculateFunction();
         }
     }
 
@@ -144,4 +125,24 @@ public class CalculationContext implements MathExpressionElementVisitor {
         masterStack.peek().operands.push(result);
     }
 
+    private void calculateFunction() {
+        Function function = functions.peek();
+        double temp;
+        double[] array = new double[masterStack.peek().operands.size()];
+        if (masterStack.peek().operands.size() != 0) {
+            for (int i = 0; i < masterStack.peek().operands.size() + 1; i++) {
+                temp = masterStack.peek().operands.pop();
+                array[i] = temp;
+            }
+            masterStack.pop();
+            double result = function.execute(array);
+            masterStack.peek().operands.push(result);
+            functions.pop();
+        } else {
+            masterStack.pop();
+            double result = function.execute();
+            masterStack.peek().operands.push(result);
+            functions.pop();
+        }
+    }
 }
