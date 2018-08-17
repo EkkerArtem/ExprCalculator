@@ -2,18 +2,18 @@ package org.javaclasses.fsm.mock;
 
 import org.javaclasses.fsm.StateAcceptor;
 
-public enum Acceptor implements StateAcceptor<IntegerStream, StringBuffer, Exception> {
-    START(null), FIRST(1), SECOND(2), FINISH(null);
+public enum Acceptor implements StateAcceptor<StateStream, StringBuffer, Exception> {
+    START(null), FIRST(State.FIRST), SECOND(State.SECOND), THIRD(State.THIRD), FOURTH(State.FOURTH), FIFTH(State.FIFTH) , FINISH(null);
 
-    private final Integer acceptorValue;
+    private final State acceptorValue;
 
-    Acceptor(Integer acceptorValue) {
+    Acceptor(State acceptorValue) {
         this.acceptorValue = acceptorValue;
     }
 
     @Override
-    public boolean accept(IntegerStream stream, StringBuffer s) throws Exception {
-        Integer newValue = stream.getNewValue();
+    public boolean accept(StateStream stream, StringBuffer s) throws Exception {
+        State newValue = stream.getNewValue();
 
         if (newValue == null) return acceptorValue == null;
 
