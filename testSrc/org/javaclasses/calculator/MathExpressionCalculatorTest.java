@@ -40,23 +40,23 @@ class MathExpressionCalculatorTest {
 
         double result = calculator.calculate("2-(5+7)");
         Assertions.assertEquals(-10, result,
-                "Minus operator is not calculated correctly.");
+                "Single bracers is not calculated correctly.");
     }
 
     @Test
-    void testSngleBracers() throws CalculationException {
+    void testOperationPriority() throws CalculationException {
 
         double result = calculator.calculate("10/5+7");
         Assertions.assertEquals(9, result,
-                "Minus operator is not calculated correctly.");
+                "Operation priority is not calculated correctly.");
     }
 
     @Test
-    void testSnleBracers() throws CalculationException {
+    void testOperationPriorityWithBracers() throws CalculationException {
 
         double result = calculator.calculate("2*12/(3+(2/2))");
         Assertions.assertEquals(6, result,
-                "Minus operator is not calculated correctly.");
+                "Operation priority with bracers is not calculated correctly.");
     }
 
     @Test
@@ -64,7 +64,7 @@ class MathExpressionCalculatorTest {
 
         double result = calculator.calculate("2+pi()");
         Assertions.assertEquals(5.14, result,0.000000000000001,
-                "Minus operator is not calculated correctly.");
+                "Pi is not calculated correctly.");
     }
 
     @Test
@@ -87,7 +87,7 @@ class MathExpressionCalculatorTest {
 
         double result = calculator.calculate("max(26/2 , 12/2)");
         Assertions.assertEquals(13, result,
-                "Minus operator is not calculated correctly.");
+                "Max is not calculated correctly.");
     }
 
     @Test
@@ -95,55 +95,59 @@ class MathExpressionCalculatorTest {
 
         double result = calculator.calculate("min(10*3 , 12*2)");
         Assertions.assertEquals(24, result,
-                "Minus operator is not calculated correctly.");
+                "Min is not calculated correctly.");
     }
 
     @Test
-    void testMinMaxExpression()  throws CalculationException{
+    void testMinAndMaxExpression()  throws CalculationException{
 
         double result = calculator.calculate("min(10*3 , 12*2)+max(26/2 , 12/2)/3");
         Assertions.assertEquals(28.33, result,0.03,
-                "Minus operator is not calculated correctly.");
+                "Min and max is not calculated correctly.");
     }
 
     @Test
-    void testMinMax2Expression()  throws CalculationException{
+    void testMinMaxWithExpressionInside()  throws CalculationException{
 
         double result = calculator.calculate("(min(10*3 , 12*2)+max(26/2 , 12/2))/3");
         Assertions.assertEquals(37.0/3.0, result,
-                "Minus operator is not calculated correctly.");
+                "Min and max with expression inside is not calculated correctly.");
     }
 
     @Test
-    void testMinMax22Expression()  throws CalculationException{
+    void testMaxInsideMinExpression()  throws CalculationException{
 
         double result = calculator.calculate("min(10*3 , max(26/2 , 12/2))");
         Assertions.assertEquals(13, result,
-                "Minus operator is not calculated correctly.");
+                "Max inside min is not calculated correctly.");
     }
 
     @Test
     void testMultipleExpressionsAsArgumentToFunction() throws CalculationException{
         double result = calculator.calculate("max(16/4 , (2+6)+4)");
-        Assertions.assertEquals(12, result, "Multiple expression as function arguments is not calculated correctly.");
+        Assertions.assertEquals(12, result,
+                "Multiple expression as function arguments is not calculated correctly.");
     }
 
     @Test
     void smokeTest() throws CalculationException {
         double result = calculator.calculate("max(max(pi() , sqrt(100)) , pi())");
-        Assertions.assertEquals(10, result);
+        Assertions.assertEquals(10, result,
+                "Functions aren't calculating together.");
     }
 
     @Test
-    void testFunctionWithExpression() throws CalculationException {
+    void testSqrtWithExpression() throws CalculationException {
         final double result = calculator.calculate("sqrt(2*2+15+pi()+1+16*2+12)");
-        Assertions.assertEquals(8.193900170248599, result);
+        Assertions.assertEquals(8.193900170248599, result,
+                "Sqrt with expression inside is not calculated correctly.");
     }
 
     @Test
     void testTwiFunctionsResult() throws CalculationException {
-        final double result = calculator.calculate("sqrt(100+pi())");
-        Assertions.assertEquals(Math.sqrt(103.14), result);
+        final double result = calculator.calculate("sqrt(100)+pi())");
+        Assertions.assertEquals(13.14, result,
+                "Sqrt + pi don't work together");
     }
 
 }
