@@ -81,4 +81,69 @@ class MathExpressionCalculatorTest {
                     "Error position is not correct.");
         }
     }
+
+    @Test
+    void testMaxExpression()  throws CalculationException{
+
+        double result = calculator.calculate("max(26/2 , 12/2)");
+        Assertions.assertEquals(13, result,
+                "Minus operator is not calculated correctly.");
+    }
+
+    @Test
+    void testMinExpression()  throws CalculationException{
+
+        double result = calculator.calculate("min(10*3 , 12*2)");
+        Assertions.assertEquals(24, result,
+                "Minus operator is not calculated correctly.");
+    }
+
+    @Test
+    void testMinMaxExpression()  throws CalculationException{
+
+        double result = calculator.calculate("min(10*3 , 12*2)+max(26/2 , 12/2)/3");
+        Assertions.assertEquals(28.33, result,0.03,
+                "Minus operator is not calculated correctly.");
+    }
+
+    @Test
+    void testMinMax2Expression()  throws CalculationException{
+
+        double result = calculator.calculate("(min(10*3 , 12*2)+max(26/2 , 12/2))/3");
+        Assertions.assertEquals(37.0/3.0, result,
+                "Minus operator is not calculated correctly.");
+    }
+
+    @Test
+    void testMinMax22Expression()  throws CalculationException{
+
+        double result = calculator.calculate("min(10*3 , max(26/2 , 12/2))");
+        Assertions.assertEquals(13, result,
+                "Minus operator is not calculated correctly.");
+    }
+
+    @Test
+    void testMultipleExpressionsAsArgumentToFunction() throws CalculationException{
+        double result = calculator.calculate("max(16/4 , (2+6)+4)");
+        Assertions.assertEquals(12, result, "Multiple expression as function arguments is not calculated correctly.");
+    }
+
+    @Test
+    void smokeTest() throws CalculationException {
+        double result = calculator.calculate("max(max(pi() , sqrt(100)) , pi())");
+        Assertions.assertEquals(10, result);
+    }
+
+    @Test
+    void testFunctionWithExpression() throws CalculationException {
+        final double result = calculator.calculate("sqrt(2*2+15+pi()+1+16*2+12)");
+        Assertions.assertEquals(8.193900170248599, result);
+    }
+
+    @Test
+    void testTwiFunctionsResult() throws CalculationException {
+        final double result = calculator.calculate("sqrt(100+pi())");
+        Assertions.assertEquals(Math.sqrt(103.14), result);
+    }
+
 }

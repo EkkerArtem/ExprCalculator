@@ -30,10 +30,10 @@ public class FsmCalculator extends FiniteStateMachine<
         registerTransition(START, EnumSet.of(NUMBER, OPENING_BRACER, FUNCTION), null);
         registerTransition(NUMBER, EnumSet.of(OPERATOR, CLOSING_BRACER, DELIMITER, FINISH), new NumberStateAcceptor());
         registerTransition(OPERATOR, EnumSet.of(NUMBER, OPENING_BRACER, FUNCTION), new OperatorStateAcceptor());
-        registerTransition(OPENING_BRACER, EnumSet.of(NUMBER, OPENING_BRACER), new OpeningBracerStateAcceptor());
-        registerTransition(CLOSING_BRACER, EnumSet.of(CLOSING_BRACER, OPERATOR, FINISH), new ClosingBracerStateAcceptor());
-        registerTransition(FUNCTION,EnumSet.of(CLOSING_BRACER, NUMBER, FUNCTION), new FunctionStateAcceptor());
-        registerTransition(DELIMITER,EnumSet.of(NUMBER), new DelimiterAcceptor());
+        registerTransition(OPENING_BRACER, EnumSet.of(NUMBER, OPENING_BRACER, FUNCTION), new OpeningBracerStateAcceptor());
+        registerTransition(CLOSING_BRACER, EnumSet.of(CLOSING_BRACER, OPERATOR, FINISH, DELIMITER), new ClosingBracerStateAcceptor());
+        registerTransition(FUNCTION,EnumSet.of(CLOSING_BRACER, NUMBER, FUNCTION, DELIMITER), new FunctionStateAcceptor());
+        registerTransition(DELIMITER,EnumSet.of(NUMBER, FUNCTION, OPENING_BRACER), new DelimiterAcceptor());
         registerTransition(FINISH, EnumSet.noneOf(State.class), new FinishStateAcceptor());
     }
 
