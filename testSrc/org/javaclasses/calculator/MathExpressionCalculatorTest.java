@@ -58,10 +58,10 @@ class MathExpressionCalculatorTest {
     }
 
     @Test
-    void testPIExpression()  throws CalculationException{
+    void testPIExpression() throws CalculationException {
 
         double result = calculator.calculate("2+pi()");
-        Assertions.assertEquals(5.14, result,0.000000000000001,
+        Assertions.assertEquals(5.14, result, 0.000000000000001,
                 "Pi is not calculated correctly.");
     }
 
@@ -81,7 +81,7 @@ class MathExpressionCalculatorTest {
     }
 
     @Test
-    void testMaxExpression()  throws CalculationException{
+    void testMaxExpression() throws CalculationException {
 
         double result = calculator.calculate("max(26/2 , 12/2 , 8*2)");
         Assertions.assertEquals(16, result,
@@ -89,7 +89,7 @@ class MathExpressionCalculatorTest {
     }
 
     @Test
-    void testMinExpression()  throws CalculationException{
+    void testMinExpression() throws CalculationException {
 
         double result = calculator.calculate("min(10*3 , 12*2)");
         Assertions.assertEquals(24, result,
@@ -97,23 +97,23 @@ class MathExpressionCalculatorTest {
     }
 
     @Test
-    void testMinAndMaxExpression()  throws CalculationException{
+    void testMinAndMaxExpression() throws CalculationException {
 
         double result = calculator.calculate("min(10*3 , 12*2)+max(26/2 , 12/2)/3");
-        Assertions.assertEquals(28.33, result,0.03,
+        Assertions.assertEquals(28.33, result, 0.03,
                 "Min and max is not calculated correctly.");
     }
 
     @Test
-    void testMinMaxWithExpressionInside()  throws CalculationException{
+    void testMinMaxWithExpressionInside() throws CalculationException {
 
         double result = calculator.calculate("(min(10*3 , 12*2)+max(26/2 , 12/2))/3");
-        Assertions.assertEquals(37.0/3.0, result,
+        Assertions.assertEquals(37.0 / 3.0, result,
                 "Min and max with expression inside is not calculated correctly.");
     }
 
     @Test
-    void testMaxInsideMinExpression()  throws CalculationException{
+    void testMaxInsideMinExpression() throws CalculationException {
 
         double result = calculator.calculate("min(10*3 , max(26/2 , 12/2))");
         Assertions.assertEquals(13, result,
@@ -121,7 +121,7 @@ class MathExpressionCalculatorTest {
     }
 
     @Test
-    void testMultipleExpressionsAsArgumentToFunction() throws CalculationException{
+    void testMultipleExpressionsAsArgumentToFunction() throws CalculationException {
         double result = calculator.calculate("max(16/4 , (2+6)+4)");
         Assertions.assertEquals(12, result,
                 "Multiple expression as function arguments is not calculated correctly.");

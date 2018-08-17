@@ -23,8 +23,8 @@ class FiniteStateMachineTest {
                 }
 
                 {
-                    registerTransition(START, EnumSet.of(FIRST,SECOND), Acceptor.START);
-                    registerTransition(FIRST, EnumSet.of(SECOND), Acceptor.FIRST);
+                    registerTransition(START, EnumSet.of(FIRST, SECOND), Acceptor.START);
+                    registerTransition(FIRST, EnumSet.of(SECOND, FINISH), Acceptor.FIRST);
                     registerTransition(SECOND, EnumSet.of(THIRD), Acceptor.SECOND);
                     registerTransition(THIRD, EnumSet.of(FOURTH), Acceptor.THIRD);
                     registerTransition(FOURTH, EnumSet.of(FIFTH), Acceptor.FOURTH);
@@ -38,19 +38,20 @@ class FiniteStateMachineTest {
     private StateStream data = Mockito.mock(StateStream.class);
 
     @Test
-    void testStateTransitions() throws Exception{
+    void testStateTransitions() throws Exception {
 
         when(data.getNewValue()).thenReturn(FIRST).thenReturn(SECOND)
-                                .thenReturn(THIRD).thenReturn(FOURTH).thenReturn(FIFTH).thenReturn(null);
+                .thenReturn(THIRD).thenReturn(FOURTH).thenReturn(FIFTH).thenReturn(null);
         StringBuffer result = new StringBuffer();
         System.out.println(result.toString());
         stateMachine.run(START, data, result);
         assertEquals(result.toString(), "FIRSTSECONDTHIRDFOURTHFIFTH", "State machine doesn't change states correctly");
     }
 
+
     @Test
-    void testInvalidTransition(){
-        assertThrows(Exception.class, ()->{
+    void testInvalidTransition() {
+        assertThrows(Exception.class, () -> {
             when(data.getNewValue()).thenReturn(START).thenReturn(null);
             stateMachine.run(START, data, new StringBuffer());
             fail("Exception in states hasn't been thrown");
@@ -58,8 +59,8 @@ class FiniteStateMachineTest {
     }
 
     @Test
-    void testInvalidTransitionAfterValid(){
-        assertThrows(Exception.class, ()->{
+    void testInvalidTransitionAfterValid() {
+        assertThrows(Exception.class, () -> {
             when(data.getNewValue()).thenReturn(START).thenReturn(FIRST).thenReturn(FIFTH).thenReturn(null);
             stateMachine.run(START, data, new StringBuffer());
             fail("Exception in states hasn't been thrown");

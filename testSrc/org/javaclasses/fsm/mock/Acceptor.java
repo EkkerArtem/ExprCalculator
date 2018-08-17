@@ -3,7 +3,7 @@ package org.javaclasses.fsm.mock;
 import org.javaclasses.fsm.StateAcceptor;
 
 public enum Acceptor implements StateAcceptor<StateStream, StringBuffer, Exception> {
-    START(null), FIRST(State.FIRST), SECOND(State.SECOND), THIRD(State.THIRD), FOURTH(State.FOURTH), FIFTH(State.FIFTH) , FINISH(null);
+    START(null), FIRST(State.FIRST), SECOND(State.SECOND), THIRD(State.THIRD), FOURTH(State.FOURTH), FIFTH(State.FIFTH), FINISH(null);
 
     private final State acceptorValue;
 
